@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+	<head lang="ru">
+		<title>NEVA CINEMA</title>
+		<meta charset="UTF-8">
+		<meta name="format-detection" content="telephone=no">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
+		<link href="https://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=PT+Serif" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="css/main.css">
+	</head>
+	<body>
+		<header class="header">
+			<div class="container"><a href="/" class="header__logo"><img src="img/logo.png" alt="neva cinema"></a>
+				<nav class="main_nav">
+					<ul class="main_nav__list">
+						<li class="main_nav__item"><a href="/">Афиша</a></li>
+						<li class="main_nav__item main_nav__item--active"><a href="/">Фильмы</a></li>
+						<li class="main_nav__item"><a href="/">Клуб и привелегии</a></li>
+						<li class="main_nav__item"><a href="/">Контакты</a></li>
+					</ul>
+				</nav><a href="tel:88123758192" class="header__phone">+7 (812) 375-81-92</a>
+			</div>
+		</header>
+		<div class="local_navigation">
+			<div class="container">
+				<h2 class="local_navigation__title">Фильмы</h2>
+				<div class="main_slider">
+					<div class="main_slider__wrap">
+						<div class="main_slider__list">
+							<div class="main_slider__item_wrap">
+								<div class="main_slider__item"><img src="img/slider--bus.jpg" alt="bus"><span class="main_slider__item__date">Сейчас в кино</span><span class="main_slider__item__age">6+</span></div>
+							</div>
+							<div class="main_slider__item_wrap">
+								<div class="main_slider__item main_slider__item--soon main_slider__item--active"><img src="img/slider--savva.jpg" alt="savva"><span class="main_slider__item__date">В кино с 7 декабря</span><span class="main_slider__item__age">6+</span></div>
+							</div>
+							<div class="main_slider__item_wrap">
+								<div class="main_slider__item main_slider__item--soon"><img src="img/slider--chief.jpg" alt="chief"><span class="main_slider__item__date">В кино с 12 декабря</span><span class="main_slider__item__age">6+</span></div>
+							</div>
+							<div class="main_slider__item_wrap">
+								<div class="main_slider__item"><img src="img/slider--mars.jpg" alt="mars"><span class="main_slider__item__date">Сейчас в кино</span><span class="main_slider__item__age">18+</span></div>
+							</div>
+							<div class="main_slider__item_wrap">
+								<div class="main_slider__item"><img src="img/slider--panda.jpg" alt="panda"><span class="main_slider__item__date">Сейчас в кино</span><span class="main_slider__item__age">16+</span></div>
+							</div>
+							<div class="main_slider__item_wrap">
+								<div class="main_slider__item"><img src="img/slider--sea.jpg" alt="sea"><span class="main_slider__item__date">Сейчас в кино</span><span class="main_slider__item__age">16+</span></div>
+							</div>
+							<div class="main_slider__item_wrap">
+								<div class="main_slider__item"><img src="img/slider--starwars.jpg" alt="starwars"><span class="main_slider__item__date">Сейчас в кино</span><span class="main_slider__item__age">16+</span></div>
+							</div>
+							<div class="main_slider__item_wrap">
+								<div class="main_slider__item"><img src="img/slider--starwars.jpg" alt="starwars"><span class="main_slider__item__date">Сейчас в кино</span><span class="main_slider__item__age">16+</span></div>
+							</div>
+						</div>
+					</div>
+					<div class="main_slider__controls"><a href="/" class="main_slider__controls__item main_slider__controls__item--prev"></a><a href="/" class="main_slider__controls__item main_slider__controls__item--next"></a></div>
+				</div>
+			</div>
+		</div>
+		<main>
+			<div class="container">
+				<div class="main_content">
+					<div class="movie">
+						<h1 class="movie__title" id="film-name"></h1>
+						<div class="movie__briefly">
+							<div class="movie__poster">
+								<div class="movie__poster__image"><img src="img/savva_poster.jpg" alt="savva" id="film-poster"><span class="movie__poster__age" id="film-years"></span></div>
+							</div>
+							<div class="movie_frames">
+								<div class="movie_frames__big"><img src="img/savva_frame--1.jpg" alt="savva"></div>
+								<div class="movie_frames__mini">
+									<div class="movie_frames__mini__image movie_frames__mini__image--active"><img src="img/savva_frame--1.jpg" alt="savva"></div>
+									<div class="movie_frames__mini__image"><img src="img/savva_frame--2.jpg" alt="savva"></div>
+									<div class="movie_frames__mini__image"><img src="img/savva_frame--3.jpg" alt="savva"></div>
+									<div class="movie_frames__mini__image"><img src="img/savva_frame--4.jpg" alt="savva"></div>
+									<div class="movie_frames__mini__image"><img src="img/savva_frame--5.jpeg" alt="savva"></div>
+								</div>
+							</div>
+							<ul class="movie__desc">
+								<li class="movie__desc__item"><span>Жанр:</span> <i id="film-genre"></i></li>
+								<li class="movie__desc__item"><span>Производство:</span> <i id="film-prod"></i></li>
+								<li class="movie__desc__item"><span>Продолжительность:</span> <i id="film-time"></i></li>
+								<li class="movie__desc__item"><span>Режиссер:</span> <i id="film-author"></i></li>
+								<li class="movie__desc__item"><span>В главных ролях:</span> <br> <i id="film-actors"></i></li>
+							</ul>
+						</div>
+						<div class="movie__about" id="film-description"></div>
+					</div>
+					<div class="schedule">
+						<div class="schedule__list"></div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<section class="bonus">
+			<div class="container">
+				<h2 class="bonus__title">Для наших гостей</h2>
+				<ul class="bonus__list">
+					<li class="bonus__item bonus__item--hall"> <span class="bonus__item__image"></span><span>Комфортные<br> залы</span></li>
+					<li class="bonus__item bonus__item--food"> <span class="bonus__item__image"></span><span>Уютные<br> кафе</span></li>
+					<li class="bonus__item bonus__item--gift"> <span class="bonus__item__image"></span><span>Подарки<br> и акции</span></li>
+					<li class="bonus__item bonus__item--fest"> <span class="bonus__item__image"></span><span>Фестивали<br> и встречи</span></li>
+					<li class="bonus__item bonus__item--map"> <span class="bonus__item__image"></span><span>В центре<br> города</span></li>
+				</ul>
+			</div>
+		</section>
+		<footer class="footer">
+			<div class="container">
+				<nav class="main_nav">
+					<ul class="main_nav__list">
+						<li class="main_nav__item"><a href="/">Афиша</a></li>
+						<li class="main_nav__item"><a href="/">Фильмы</a></li>
+						<li class="main_nav__item"><a href="/">Клуб и привелегии</a></li>
+						<li class="main_nav__item"><a href="/">Контакты</a></li>
+					</ul>
+				</nav>
+				<div class="social"><a href="/" class="social_item social_item--vk"></a><a href="/" class="social_item social_item--fb"></a><a href="/" class="social_item social_item--tw"></a></div>
+				<div class="footer__contacts"><a href="tel:88123758192" class="footer__contacts__phone">+7 (812) 375-81-92</a>
+					<address class="footer__contacts__address">Большой пр, ПС, д. 21</address>
+				</div>
+				<p class="footer__copyright">© NEVA CINEMA 2015</p>
+			</div>
+		</footer>
+
+		<!-- popup -->
+		<div class="underlay_popup"></div>
+		<div class="seanse_popup">
+			<div class="seanse_popup__header"><a href="/" class="seanse_popup__logo"><img src="img/logo.png" alt="neva cinema"></a>
+				<p class="seanse_popup__header__title">Билеты</p>
+				<p class="seanse_popup__header__close"><a href="/">Выйти</a></p>
+			</div>
+			<div class="seanse_popup__main">
+				<div class="seanse">
+					<p class="seanse__film_title">Вы выбрали фильм <br><span>Савва. Сердце воина</span></p>
+					<p class="seanse__film_sublitle">для детей старше 6 лет</p>
+					<div class="seanse__row">
+						<div class="seanse__column">
+							<p class="seanse__text">Выбор мест</p>
+							<div class="seanse_scheme">
+								<p class="seanse_scheme__screen">Экран</p>
+								<div class="seanse_scheme__row">
+									<div class="seanse_scheme__seat" data-coords="1:1"></div>
+									<div class="seanse_scheme__seat" data-coords="1:2"></div>
+									<div class="seanse_scheme__seat" data-coords="1:3"></div>
+									<div class="seanse_scheme__seat" data-coords="1:4"></div>
+									<div class="seanse_scheme__seat" data-coords="1:5"></div>
+									<div class="seanse_scheme__seat" data-coords="1:6"></div>
+									<div class="seanse_scheme__seat" data-coords="1:7"></div>
+									<div class="seanse_scheme__seat" data-coords="1:8"></div>
+									<div class="seanse_scheme__seat" data-coords="1:9"></div>
+									<div class="seanse_scheme__seat" data-coords="1:10"></div>
+								</div>
+								<div class="seanse_scheme__row">
+									<div class="seanse_scheme__seat" data-coords="2:1"></div>
+									<div class="seanse_scheme__seat" data-coords="2:2"></div>
+									<div class="seanse_scheme__seat" data-coords="2:3"></div>
+									<div class="seanse_scheme__seat" data-coords="2:4"></div>
+									<div class="seanse_scheme__seat" data-coords="2:5"></div>
+									<div class="seanse_scheme__seat" data-coords="2:6"></div>
+									<div class="seanse_scheme__seat" data-coords="2:7"></div>
+									<div class="seanse_scheme__seat" data-coords="2:8"></div>
+									<div class="seanse_scheme__seat" data-coords="2:9"></div>
+									<div class="seanse_scheme__seat" data-coords="2:10"></div>
+								</div>
+								<div class="seanse_scheme__row">
+									<div class="seanse_scheme__seat" data-coords="3:1"></div>
+									<div class="seanse_scheme__seat" data-coords="3:2"></div>
+									<div class="seanse_scheme__seat" data-coords="3:3"></div>
+									<div class="seanse_scheme__seat" data-coords="3:4"></div>
+									<div class="seanse_scheme__seat" data-coords="3:5"></div>
+									<div class="seanse_scheme__seat" data-coords="3:6"></div>
+									<div class="seanse_scheme__seat" data-coords="3:7"></div>
+									<div class="seanse_scheme__seat" data-coords="3:8"></div>
+									<div class="seanse_scheme__seat" data-coords="3:9"></div>
+									<div class="seanse_scheme__seat" data-coords="3:10"></div>
+								</div>
+							</div>
+							<p class="seanse__hall">Зеленый зал</p>
+							<p class="seanse__text">Обозначение мест</p>
+							<ul class="seanse_scheme__desc">
+								<li class="seanse_scheme__desc__item">занято</li>
+								<li class="seanse_scheme__desc__item">свободно</li>
+								<li class="seanse_scheme__desc__item">выбрано</li>
+							</ul>
+							<p class="seanse__offer">Вы член клуба Neva Cinema? Для того, чтобы использовать привилегии, введите номер клубной карты
+								<input type="text" placeholder="введите номер" class="input">
+							</p>
+							<p class="seanse__offer">Если вы не являетесь зарегистрированным членом клуба Neva Cinema, введите адрес вашей электронной почты, на который мы пришлем подтверждение и информацию по билетам
+								<input type="text" placeholder="ваша@почта" class="input">
+							</p>
+						</div>
+						<div class="seanse__column">
+							<ul class="seanse__information">
+								<li class="seanse__information__item"><span>Дата:</span> <i id="session-date"></i> </li>
+								<li class="seanse__information__item"><span>Сеанс:</span> <i id="session-time"></i></li>
+								<li class="seanse__information__item"><span>Цена одного билета:</span> <i id="session-price"></i> рублей</li>
+								<li class="seanse__information__item"><span>Количество мест <i id="seat-count">0</i>:</span>
+									<ul id="seat-number"></ul>
+								</li>
+								<li class="seanse__information__item"><span>Итого:</span> билетов <i id="coupon-count">0</i> на сумму <i id="coupon-sum">0</i> руб.</li>
+							</ul>
+							<label class="radio_button">
+								<input type="radio" name="target" class="radio_button__input"><span>Оплатить билеты</span>
+							</label>
+							<label class="radio_button">
+								<input type="radio" name="target" checked class="radio_button__input"><span>Забронировать</span>
+							</label>
+							<button type="submit" class="btn">Далее</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="seanse_popup__footer">
+				<p class="seanse_popup__footer__text">Узнать о клубе Neva Cinema <br> и привилегиях можно <a href="/">здесь</a>.</p><a href="tel:88123758192" class="seanse_popup__footer__phone">+7 (812) 375-81-92</a>
+			</div>
+		</div>
+		<script src="js/main.js"></script>
+	</body>
+</html>
