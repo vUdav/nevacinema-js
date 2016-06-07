@@ -13,19 +13,34 @@
 	app.init = function () {
 		// принимаем хэш из урла
 		var filmId = window.location.hash.slice(1) || 1;
-		// записываем айди фильма глобально
-		app.filmId = filmId;
 		// хэш всегда должен быть числом, провеяем это
 		if (Number(filmId) != filmId) {
 			filmId = 1;
 		}
 
+		// записываем айди фильма глобально
+		app.filmId = filmId;
+
 		// принимаем json данные фильма
 		app.ajax({
-			url: "film-"+filmId+".json"
+			url: "film-"+app.filmId+".json"
 		}, function(err, data){
 			if(err) document.body.classList.add("status-404");
 			else app.drawFilmData(data);
+		});
+
+		// отрисовываем слайдер
+		app.ajax({
+			url: "slider.json"
+		}, function(err, data){
+			if(err) {
+				console.log('Slider JSON not found');
+			} else {
+				// рисуем слайдер
+				app.drawSlider(data);
+				// инициализируем фукнцию слайдера
+				app.slider();
+			}
 		});
 
 		// инициализируем фукнцию открытия модкли
@@ -35,7 +50,159 @@
 
 		// инициализируем функцию вывода мест
 		app.initSeats();
+
+		// инициализируем функцию галереи
+		app.gallery();
 	}
+
+	// фукнция отрисовки слайдера
+	app.drawSlider = function(data){
+		var slider = document.querySelector('#slider-list');
+		if(!slider) throw new Error("Slider list not found");
+
+		var count = 1;
+
+		data.slider.forEach(function(slideData){
+			// слайд
+			var slide = document.createElement('div');
+			slide.className = "main_slider__item_wrap";
+			slide.setAttribute('data-id',slideData.id);
+			// обертка слайдера
+			var slideWrapper = document.createElement('div');
+			slideWrapper.className = "main_slider__item";
+			if(slideData.soon) slideWrapper.classList.add('main_slider__item--soon');
+			if (app.filmId == count) slideWrapper.classList.add('main_slider__item--active');
+			// изображение слайда
+			var slideImg = document.createElement('img');
+			slideImg.setAttribute('src','img/'+slideData.img);
+			// текст когда в прокате
+			var slideDate = document.createElement('span');
+			slideDate.className = 'main_slider__item__date';
+			if(slideData.soon) slideDate.innerText = 'В кино с '+slideData.date;
+			else slideDate.innerText = 'Сейчас в кино';
+			// возрастные ограничения
+			var slideYears = document.createElement('span');
+			slideYears.className = 'main_slider__item__age';
+			slideYears.innerText = slideData.years;
+
+			// собираем слайд
+			slideWrapper.appendChild(slideImg);
+			slideWrapper.appendChild(slideDate);
+			slideWrapper.appendChild(slideYears);
+			slide.appendChild(slideWrapper);
+
+			// вставляем слайд в слайдер
+			slider.appendChild(slide);
+
+			count += 1;
+		});
+	};
+
+	// фукнция слайдера
+	app.slider = function(){
+		// перерисовываем страницу при клике на слайд
+		var sliderEl = document.querySelector('#slider-list');
+		sliderEl.addEventListener('click',function(e){
+			var slide = closest(e.target,'main_slider__item');
+			var slides = document.querySelectorAll('.main_slider__item');
+			slides.forEach(function(e){
+				e.classList.remove('main_slider__item--active');
+			});
+			slide.classList.add('main_slider__item--active');
+			var id = slide.parentNode.getAttribute('data-id');
+			window.location.hash = '#'+id;
+			app.filmId = id;
+			// сбрасываем данные
+			app.resetFilmData();
+			// принимаем json данные фильма
+			app.ajax({
+				url: "film-"+app.filmId+".json"
+			}, function(err, data){
+				if(err) document.body.classList.add("status-404");
+				else app.drawFilmData(data);
+			});
+		});
+
+		// перелистывание слайдера
+		var leftEl = document.querySelector('#slider-left');
+		if(!leftEl) throw new Error("Slider left arrow not found");
+		var rightEl = document.querySelector('#slider-right');
+		if(!rightEl) throw new Error("Slider left arrow not found");
+		var sliderEl = document.querySelector('#slider');
+		if(!sliderEl) throw new Error("Slider not found");
+		var sliderList = document.querySelector('#slider-list');
+		if(!sliderList) throw new Error("Slider list not found");
+		var slideEl = document.querySelectorAll('.main_slider__item_wrap');
+		if(!slideEl) throw new Error("Slide not found");
+
+		// высчитываем ширину блоков
+		var sliderElWidth = sliderEl.offsetWidth; //ширина контейнера слайдера
+		var slideElWidth = slideEl[0].offsetWidth; //ширина одного слайда
+		var slidesWidth = slideElWidth * slideEl.length; //ширина всех слайдов
+
+		var startPoint = 0; //стартовая точка слайдера
+
+		// кликаем влево
+		leftEl.addEventListener('click',function(e){
+			e.preventDefault();
+			if (startPoint < 0) {
+				startPoint += slideElWidth;
+				sliderList.style.transform = 'translate('+startPoint+'px)';
+			} else {
+				startPoint = -(slidesWidth - sliderElWidth);
+				sliderList.style.transform = 'translate('+startPoint+'px)';
+			}
+		});
+
+		// кликаем вправо
+		rightEl.addEventListener('click',function(e){
+			e.preventDefault();
+			if (startPoint > -(slidesWidth - sliderElWidth)) {
+				startPoint -= slideElWidth;
+				sliderList.style.transform = 'translate('+startPoint+'px)';
+			} else {
+				startPoint = 0;
+				sliderList.style.transform = 'translate('+startPoint+'px)';
+
+			}
+		});
+	};
+
+	// фукнция поиска родителя кликнутого элемента
+	function closest(el, name) {
+		if(!el) return null;
+		if(el.classList.contains(name)) return el;
+		return closest(el.parentNode, name);
+	}
+
+	// фукнция галереи
+	app.gallery = function() {
+		var galleryFull = document.querySelector('#gallery-full');
+		if(!galleryFull) throw new Error("Gallery full not found");
+		var galleryThumb = document.querySelector('#gallery-thumb');
+		if(!galleryThumb) throw new Error("Gallery thumb list not found");
+
+		galleryThumb.addEventListener('click',function(e){
+			var target = e.target;
+
+			// ищем нажатый элемент
+			if (!target.classList.contains('movie_frames__mini__image') && !target.parentNode.classList.contains('movie_frames__mini__image')) return;
+			else if (target.parentNode.classList.contains('movie_frames__mini__image')) target = target.parentNode;
+
+			// убираем у всех превьюх активность
+			var thumb = galleryThumb.querySelectorAll('.movie_frames__mini__image');
+			thumb.forEach(function(e){
+				e.classList.remove('movie_frames__mini__image--active');
+			});
+
+			// даем активный класс нажатому элементу
+			target.classList.add('movie_frames__mini__image--active');
+
+			// показываем картинку в фулл контейнер
+			var src = target.querySelector('img').getAttribute('src');
+			galleryFull.querySelector('img').setAttribute('src',src);
+		});
+	};
 
 	// фукнция обработки мест
 	app.initSeats = function() {
@@ -242,9 +409,16 @@
 	app.closePopup = function(){
 		var closeBtn = document.querySelector('.seanse_popup__header__close a');
 		if(!closeBtn) throw new Error("Close button not found");
+		var popupCover = document.querySelector('.underlay_popup');
+		if(!popupCover) throw new Error("Underlay popup not found");
 
 		closeBtn.addEventListener('click',function(e){
 			e.preventDefault();
+			document.body.classList.remove("show-popup");
+			app.resetSeanse();
+		});
+
+		popupCover.addEventListener('click',function(){
 			document.body.classList.remove("show-popup");
 			app.resetSeanse();
 		});
@@ -328,6 +502,10 @@
 		if (!descriptionEl) throw new Error("Description element not found");
 		var yearsEl = document.querySelector('#film-years');
 		if (!yearsEl) throw new Error("Years element not found");
+		var poupTitleEl = document.querySelector('#popup-title');
+		if (!poupTitleEl) throw new Error("Popup title element not found");
+		var poupYearsEl = document.querySelector('#popup-years');
+		if (!poupYearsEl) throw new Error("Popup years element not found");
 
 		// принимаем данные
 		nameEl.innerHTML = data.name;
@@ -339,6 +517,8 @@
 		actorsEl.innerHTML = data.actors;
 		descriptionEl.innerHTML = data.description;
 		yearsEl.innerHTML = data.years;
+		poupTitleEl.innerHTML = data.name;
+		poupYearsEl.innerHTML = data.yearsText;
 
 		// формируем список сеансов
 		var scheduleEl = document.querySelector(".schedule__list");
@@ -370,6 +550,79 @@
 			rowEl.appendChild(scheduleListEl);
 			scheduleEl.appendChild(rowEl);
 		}
+
+		// формируем галерею если она есть
+		if (data.gallery) {
+			var galleryFull = document.querySelector("#gallery-full");
+			if (!galleryFull) throw new Error("Gallery full not found");
+			var galleryThumb = document.querySelector("#gallery-thumb");
+			if (!galleryThumb) throw new Error("Gallery thumb list not found");
+
+			var img = document.createElement('img');
+			img.setAttribute('src','img/'+data.gallery[0]);
+			galleryFull.appendChild(img);
+
+			var count = 0;
+			data.gallery.forEach(function(image){
+				var imgThumb = document.createElement('img');
+				var div = document.createElement('div');
+				div.className = 'movie_frames__mini__image';
+				if (count == 0) div.classList.add('movie_frames__mini__image--active');
+				imgThumb.setAttribute('src','img/'+image);
+				div.appendChild(imgThumb);
+				galleryThumb.appendChild(div);
+
+				count += 1;
+			});
+		}
+	};
+
+	// функция сброса данных фильма
+	app.resetFilmData = function(){
+		// выборка элементов
+		var nameEl = document.querySelector('#film-name');
+		if (!nameEl) throw new Error("Title element not found");
+		var posterEl = document.querySelector('#film-poster');
+		if (!posterEl) throw new Error("Poster element not found");
+		var genreEl = document.querySelector('#film-genre');
+		if (!genreEl) throw new Error("Genre element not found");
+		var prodEl = document.querySelector('#film-prod');
+		if (!prodEl) throw new Error("Production element not found");
+		var timeEl = document.querySelector('#film-time');
+		if (!timeEl) throw new Error("Time element not found");
+		var authorEl = document.querySelector('#film-author');
+		if (!authorEl) throw new Error("Author element not found");
+		var actorsEl = document.querySelector('#film-actors');
+		if (!actorsEl) throw new Error("Actor element not found");
+		var descriptionEl = document.querySelector('#film-description');
+		if (!descriptionEl) throw new Error("Description element not found");
+		var yearsEl = document.querySelector('#film-years');
+		if (!yearsEl) throw new Error("Years element not found");
+		var poupTitleEl = document.querySelector('#popup-title');
+		if (!poupTitleEl) throw new Error("Popup title element not found");
+		var poupYearsEl = document.querySelector('#popup-years');
+		if (!poupYearsEl) throw new Error("Popup years element not found");
+		var galleryFull = document.querySelector("#gallery-full");
+		if (!galleryFull) throw new Error("Gallery full not found");
+		var galleryThumb = document.querySelector("#gallery-thumb");
+		if (!galleryThumb) throw new Error("Gallery thumb list not found");
+		var scheduleEl = document.querySelector(".schedule__list");
+		if (!scheduleEl) throw new Error("Schedule list element not found");
+
+		nameEl.innerHTML = '';
+		posterEl.setAttribute('src','');
+		genreEl.innerHTML = '';
+		prodEl.innerHTML = '';
+		timeEl.innerHTML = '';
+		authorEl.innerHTML = '';
+		actorsEl.innerHTML = '';
+		descriptionEl.innerHTML = '';
+		yearsEl.innerHTML = '';
+		poupTitleEl.innerHTML = '';
+		poupYearsEl.innerHTML = '';
+		galleryFull.innerHTML = '';
+		galleryThumb.innerHTML = '';
+		scheduleEl.innerHTML = '';
 	};
 
 	// функция аякса

@@ -19,6 +19,7 @@
   "homepage": "https://github.com/vUdav/nevacinema-js#readme",
   "devDependencies": {
     "connect": "^3.4.1",
+    "normalize.css": "^4.1.1",
     "serve-static": "^1.10.3"
   }
 }

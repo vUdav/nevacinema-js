@@ -1,0 +1,66 @@
+{
+	"slider": [
+		{
+			"id": 1,
+			"img": "slider--savva.jpg",
+			"soon": true,
+			"date": "7 декабря",
+			"years": "6+"
+		},
+		{
+			"id": 2,
+			"img": "slider--bus.jpg",
+			"soon": false,
+			"years": "6+"
+		},
+		{
+			"id": 3,
+			"img": "slider--chief.jpg",
+			"soon": true,
+			"date": "12 декабря",
+			"years": "6+"
+		},
+		{
+			"id": 4,
+			"img": "slider--mars.jpg",
+			"soon": false,
+			"years": "18+"
+		},
+		{
+			"id": 5,
+			"img": "slider--panda.jpg",
+			"soon": false,
+			"years": "16+"
+		},
+		{
+			"id": 6,
+			"img": "slider--sea.jpg",
+			"soon": false,
+			"years": "16+"
+		},
+		{
+			"id": 7,
+			"img": "slider--starwars.jpg",
+			"soon": false,
+			"years": "16+"
+		},
+		{
+			"id": 8,
+			"img": "zootopia.jpg",
+			"soon": false,
+			"years": "6+"
+		},
+		{
+			"id": 9,
+			"img": "sn3.jpg",
+			"soon": false,
+			"years": "18+"
+		},
+		{
+			"id": 10,
+			"img": "mm.jpg",
+			"soon": false,
+			"years": "16+"
+		}
+	]
+}

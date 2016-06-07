@@ -967,6 +967,7 @@ a {
 }
 .main_slider__list {
 	width: 10000px;
+	transition: .2s transform;
 }
 .main_slider__list:before,
 .main_slider__list:after {
@@ -1012,8 +1013,8 @@ a {
 	width: 100%;
 }
 .main_slider__item--active {
-	-webkit-transform: scale(1.2);
-					transform: scale(1.2);
+	-webkit-transform: scale(1.18);
+					transform: scale(1.18);
 }
 .main_slider__item--active:hover {
 	-webkit-transform: scale(1.2);

@@ -27,35 +27,10 @@
 			<div class="container">
 				<h2 class="local_navigation__title">Фильмы</h2>
 				<div class="main_slider">
-					<div class="main_slider__wrap">
-						<div class="main_slider__list">
-							<div class="main_slider__item_wrap">
-								<div class="main_slider__item"><img src="img/slider--bus.jpg" alt="bus"><span class="main_slider__item__date">Сейчас в кино</span><span class="main_slider__item__age">6+</span></div>
-							</div>
-							<div class="main_slider__item_wrap">
-								<div class="main_slider__item main_slider__item--soon main_slider__item--active"><img src="img/slider--savva.jpg" alt="savva"><span class="main_slider__item__date">В кино с 7 декабря</span><span class="main_slider__item__age">6+</span></div>
-							</div>
-							<div class="main_slider__item_wrap">
-								<div class="main_slider__item main_slider__item--soon"><img src="img/slider--chief.jpg" alt="chief"><span class="main_slider__item__date">В кино с 12 декабря</span><span class="main_slider__item__age">6+</span></div>
-							</div>
-							<div class="main_slider__item_wrap">
-								<div class="main_slider__item"><img src="img/slider--mars.jpg" alt="mars"><span class="main_slider__item__date">Сейчас в кино</span><span class="main_slider__item__age">18+</span></div>
-							</div>
-							<div class="main_slider__item_wrap">
-								<div class="main_slider__item"><img src="img/slider--panda.jpg" alt="panda"><span class="main_slider__item__date">Сейчас в кино</span><span class="main_slider__item__age">16+</span></div>
-							</div>
-							<div class="main_slider__item_wrap">
-								<div class="main_slider__item"><img src="img/slider--sea.jpg" alt="sea"><span class="main_slider__item__date">Сейчас в кино</span><span class="main_slider__item__age">16+</span></div>
-							</div>
-							<div class="main_slider__item_wrap">
-								<div class="main_slider__item"><img src="img/slider--starwars.jpg" alt="starwars"><span class="main_slider__item__date">Сейчас в кино</span><span class="main_slider__item__age">16+</span></div>
-							</div>
-							<div class="main_slider__item_wrap">
-								<div class="main_slider__item"><img src="img/slider--starwars.jpg" alt="starwars"><span class="main_slider__item__date">Сейчас в кино</span><span class="main_slider__item__age">16+</span></div>
-							</div>
-						</div>
+					<div class="main_slider__wrap" id="slider">
+						<div class="main_slider__list" id="slider-list"></div>
 					</div>
-					<div class="main_slider__controls"><a href="/" class="main_slider__controls__item main_slider__controls__item--prev"></a><a href="/" class="main_slider__controls__item main_slider__controls__item--next"></a></div>
+					<div class="main_slider__controls"><a href="/" class="main_slider__controls__item main_slider__controls__item--prev" id="slider-left"></a><a href="/" class="main_slider__controls__item main_slider__controls__item--next" id="slider-right"></a></div>
 				</div>
 			</div>
 		</div>
@@ -66,17 +41,11 @@
 						<h1 class="movie__title" id="film-name"></h1>
 						<div class="movie__briefly">
 							<div class="movie__poster">
-								<div class="movie__poster__image"><img src="img/savva_poster.jpg" alt="savva" id="film-poster"><span class="movie__poster__age" id="film-years"></span></div>
+								<div class="movie__poster__image"><img src="" id="film-poster"><span class="movie__poster__age" id="film-years"></span></div>
 							</div>
 							<div class="movie_frames">
-								<div class="movie_frames__big"><img src="img/savva_frame--1.jpg" alt="savva"></div>
-								<div class="movie_frames__mini">
-									<div class="movie_frames__mini__image movie_frames__mini__image--active"><img src="img/savva_frame--1.jpg" alt="savva"></div>
-									<div class="movie_frames__mini__image"><img src="img/savva_frame--2.jpg" alt="savva"></div>
-									<div class="movie_frames__mini__image"><img src="img/savva_frame--3.jpg" alt="savva"></div>
-									<div class="movie_frames__mini__image"><img src="img/savva_frame--4.jpg" alt="savva"></div>
-									<div class="movie_frames__mini__image"><img src="img/savva_frame--5.jpeg" alt="savva"></div>
-								</div>
+								<div class="movie_frames__big" id="gallery-full"></div>
+								<div class="movie_frames__mini" id="gallery-thumb"></div>
 							</div>
 							<ul class="movie__desc">
 								<li class="movie__desc__item"><span>Жанр:</span> <i id="film-genre"></i></li>
@@ -133,8 +102,8 @@
 			</div>
 			<div class="seanse_popup__main">
 				<div class="seanse">
-					<p class="seanse__film_title">Вы выбрали фильм <br><span>Савва. Сердце воина</span></p>
-					<p class="seanse__film_sublitle">для детей старше 6 лет</p>
+					<p class="seanse__film_title">Вы выбрали фильм <br><span id="popup-title"></span></p>
+					<p class="seanse__film_sublitle" id="popup-years"></p>
 					<div class="seanse__row">
 						<div class="seanse__column">
 							<p class="seanse__text">Выбор мест</p>
